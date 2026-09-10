@@ -43,4 +43,7 @@ data/
 
 # AI tool state (local only)
 .commandcode/
-.claude/settings.local.json
+.claude/
+.codex/
+.agents/
+.superpowers/
