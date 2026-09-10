@@ -40,3 +40,7 @@ data/
 
 # Local worktrees
 .worktrees/
+
+# AI tool state (local only)
+.commandcode/
+.claude/settings.local.json
