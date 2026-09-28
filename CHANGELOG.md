@@ -7,6 +7,9 @@
 
 ## [Unreleased]
 
+_(暂无)_
+
+## [v2.3.0] - 2026-09-28
 ### Added
 - README 新增主界面产品截图（`docs/screenshots/main.png`）
 
