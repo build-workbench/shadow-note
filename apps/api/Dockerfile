@@ -1,11 +1,9 @@
-# 两阶段构建：sqlite3 等原生模块若无预编译二进制需要现场编译，
-# 编译工具链只留在 builder 阶段，runtime 镜像保持精简。
-# 两个阶段使用同一 node:20 基础镜像，保证 ABI 一致。
-FROM node:20-slim AS deps
-
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends python3 make g++ \
-    && rm -rf /var/lib/apt/lists/*
+# 两阶段构建：
+# - builder 使用完整版 node:20：自带 python3/gcc/make，可现场编译 sqlite3
+#   等原生模块，无需 apt-get，受限网络环境下只要基础镜像可拉取即可构建；
+# - runtime 使用 node:20-slim：只复制编译产物。两阶段同为 Debian bookworm
+#   + Node 20 ABI，原生模块直接兼容。
+FROM node:20 AS deps
 
 WORKDIR /app
 
