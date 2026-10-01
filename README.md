@@ -1,3 +1,44 @@
+# ShadowNote / Shadow Notes
+
+A zero-knowledge real-time note synchronization system — end-to-end encrypted, the server only relays ciphertext and cannot see the content; lightweight self-hosting, no account required.
+
+![Browser window frame](./docs/screenshots/browser.png)
+
+## Features
+
+- **End-to-end encryption**: AES-256-GCM, the server only relays ciphertext
+- **12-word mnemonic recovery**: BIP39, sync keys across devices
+- **Real-time sync**: WebSocket + Socket.IO, offline-first, multi-device collaboration
+- **Conflict resolution**: three-way merge with a manual resolution UI
+
+## Quick Start
+
+```bash
+# 后端（http://localhost:3002）
+cd apps/api && npm ci && npm start
+
+# 前端（http://localhost:5173）
+cd apps/web && npm ci && npm run dev
+```
+
+## Development
+
+```bash
+npm test    # 全部测试
+npm run lint
+npm run build
+```
+
+See [ARCHITECTURE.md](./ARCHITECTURE.md) for the architecture, and [CHANGELOG.md](./CHANGELOG.md) for the changelog.
+
+## License
+
+[MIT](./LICENSE)
+
+---
+
+<a id="chinese"></a>
+
 # ShadowNote / 影子笔记
 
 零知识的实时笔记同步系统——端到端加密，服务器只转发密文、看不见内容；轻量自托管，无需账号。
