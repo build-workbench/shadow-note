@@ -1,0 +1,51 @@
+services:
+  api:
+    build: ./apps/api
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 3002
+      # 生产环境强制要求具体来源（通配符会被后端拒绝）；
+      # 同源反代模式下即站点对外地址，改为你的实际访问地址
+      CORS_ORIGIN: ${SHADOW_NOTE_ORIGIN:-http://localhost:8080}
+      PRIMARY_STORAGE: redis
+      FALLBACK_STORAGE: sqlite
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      SQLITE_DB_PATH: /data/notesync.db
+      LOG_LEVEL: ${SHADOW_NOTE_LOG_LEVEL:-info}
+    volumes:
+      - api-data:/data
+    depends_on:
+      redis:
+        condition: service_healthy
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    # AOF 持久化：重启后已保存的密文笔记不丢失
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  web:
+    build:
+      context: ./apps/web
+      args:
+        # 默认 "/"：走 web 容器内置 nginx 的同源反代；
+        # 前后端分域部署时改为 API 的公开地址并同步修改 CORS_ORIGIN
+        VITE_SOCKET_URL: ${SHADOW_NOTE_SOCKET_URL:-/}
+    restart: unless-stopped
+    ports:
+      - "${SHADOW_NOTE_PORT:-8080}:80"
+    depends_on:
+      - api
+
+volumes:
+  api-data:
+  redis-data:
