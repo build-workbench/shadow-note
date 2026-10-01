@@ -1,3 +1,7 @@
+**English** | [中文](#chinese)
+
+<a id="top"></a>
+
 # ShadowNote / Shadow Notes
 
 A zero-knowledge real-time note synchronization system — end-to-end encrypted, the server only relays ciphertext and cannot see the content; lightweight self-hosting, no account required.
@@ -38,6 +42,7 @@ See [ARCHITECTURE.md](./ARCHITECTURE.md) for the architecture, and [CHANGELOG.md
 ---
 
 <a id="chinese"></a>
+[English](#top) | **中文**
 
 # ShadowNote / 影子笔记
 
