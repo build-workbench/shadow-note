@@ -2,7 +2,7 @@
 
 <a id="top"></a>
 
-# ShadowNote / Shadow Notes
+# ShadowNote
 
 A zero-knowledge real-time note synchronization system — end-to-end encrypted, the server only relays ciphertext and cannot see the content; lightweight self-hosting, no account required.
 
